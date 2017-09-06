@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114124784119662824}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Simulation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,10 +215,7 @@ MonoBehaviour:
   - 3030303030
   - 3030303030
   - 3030303030
-  inValidInput:
-  - 0
-  - 0
-  - 0
+  inValidInput: 000000
 --- !u!124 &124107190733658704
 Behaviour:
   m_ObjectHideFlags: 1

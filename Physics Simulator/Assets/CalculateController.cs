@@ -9,14 +9,11 @@ public class CalculateController {
 
     public static Particle CalculateControl()
     {
-        
-        Debug.Log("Calculate control ran");
         Particle values = new Particle();
-        //+ 1 because they are stored as an array 
         //1 = 1D
         //2 = 2D
         //3 = 3D
-        int dimentions = UiController.instances.DropBoxDimention.value + 1;
+        int dimentions = UiController.instances.DropBoxDimention.value;
         Debug.Log("Number of dimentions :" + dimentions);
         if (dimentions >= 1)
         {
@@ -32,7 +29,13 @@ public class CalculateController {
         }
         if (dimentions >= 3)
         {
+            Debug.Log("Dimentions 3 ran");
             GetInput_Suvat_z(ref values);
+            Debug.Log(values.Displacement[2]);
+            Debug.Log(values.InitialVelociy[2]);
+            Debug.Log(values.FinalVelocity[2]);
+            Debug.Log(values.Acceleration[2]);
+            Debug.Log(values.Time);
         }
         else
         {
@@ -233,7 +236,7 @@ public class CalculateController {
         }
         else
         {
-            values.Displacement[1] = float.Parse(Ui.InputField_s_z.text);
+            values.Displacement[2] = float.Parse(Ui.InputField_s_z.text);
             values.Key[2] += "1";
         }
         if (Ui.InputField_u_z.text == "")
@@ -242,7 +245,7 @@ public class CalculateController {
         }
         else
         {
-            values.InitialVelociy[1] = float.Parse(Ui.InputField_u_z.text);
+            values.InitialVelociy[2] = float.Parse(Ui.InputField_u_z.text);
             values.Key[2] += "1";
         }
 
@@ -252,7 +255,7 @@ public class CalculateController {
         }
         else
         {
-            values.FinalVelocity[1] = float.Parse(Ui.InputField_v_z.text);
+            values.FinalVelocity[2] = float.Parse(Ui.InputField_v_z.text);
             values.Key[2] += "1";
         }
         if (Ui.InputField_a_z.text == "")
@@ -261,7 +264,7 @@ public class CalculateController {
         }
         else
         {
-            values.Acceleration[1] = float.Parse(Ui.InputField_a_z.text);
+            values.Acceleration[2] = float.Parse(Ui.InputField_a_z.text);
             values.Key[2] += "1";
         }
         if (Ui.InputField_Time.text == "")

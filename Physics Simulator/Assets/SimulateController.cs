@@ -56,7 +56,6 @@ public class SimulateController : MonoBehaviour {
             {
                 UpdateVelocity(deltaT, i);
                 CheckCollisions(ParticleInstances[i], deltaT, i);
-                Debug.Log(ParticleInstances[i].GetComponent<Rigidbody>().velocity.y);
             }
             if (simulationTime >= maxTime)
             {
@@ -159,5 +158,24 @@ public class SimulateController : MonoBehaviour {
         {
             Destroy(gameObjects[i]);
         }
+    }
+    public static void Calculate_1D()
+    {
+        ParticleInstances = new List<GameObject>();
+        string tag = "Simulation";
+        DestroyObjectsWithTag(tag);
+        maxTime = 0;
+        GetSimulationSpeed();
+        GetRadius();
+        for (int i = 0; i < Particle.Instances.Count; i++)
+        {
+            InstatiateParticle(i);
+            if (Particle.Instances[i].Time > maxTime)
+            {
+                maxTime = Particle.Instances[i].Time;
+            }
+        }
+        isSimulating = true;
+        simulationTime = 0;
     }
 }

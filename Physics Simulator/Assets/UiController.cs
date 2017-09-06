@@ -53,12 +53,21 @@ public class UiController : MonoBehaviour {
     {
         Particle values = CalculateController.CalculateControl();
         SimulateController holder = new SimulateController();
-        holder.SimulateControl(values);
+        int dimentions = DropBoxDimention.value + 1;
+        if (dimentions <= 2)
+        {
+            SimulateController.Calculate_1D();
+        }
+        else
+        {
+            holder.SimulateControl(values);
+        }
     }
     public void OnDropBoxParticleChanged()
     {
         int size = DropBoxParticle.options.Count;
-        if (DropBoxParticle.value == size -1)
+        //Adding another options
+        if (DropBoxParticle.value == size -1 && SimulateController.isSimulating == false)
         {
             Dropdown.OptionData[] oldOptions = new Dropdown.OptionData[size+1];
             for (int i =0;i<size;i++)

@@ -56,7 +56,12 @@ public class CalculateController {
     }
 
     private static Particle ValidationCheck(ref Particle values)
-    {               
+    {
+        Debug.Log("Key x : " + values.Key[0]);
+        Debug.Log("Key y : " + values.Key[1]);
+        Debug.Log("Key z : " + values.Key[2]);
+
+
         //If one of the axis has more than or equal to 3 inputs (then the program can calculate)
         if (values.GetNumberOfInputs()[0] >= 3 || values.GetNumberOfInputs()[1] >= 3 || values.GetNumberOfInputs()[2] >= 3)
         {

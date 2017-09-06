@@ -13,7 +13,7 @@ public class CalculateController {
         //1 = 1D
         //2 = 2D
         //3 = 3D
-        int dimentions = UiController.instances.DropBoxDimention.value + 1;
+        int dimentions = UiController.instances.DropBoxDimention.value;
         Debug.Log("Number of dimentions :" + dimentions);
         if (dimentions >= 1)
         {
@@ -31,6 +31,11 @@ public class CalculateController {
         {
             Debug.Log("Dimentions 3 ran");
             GetInput_Suvat_z(ref values);
+            Debug.Log(values.Displacement[2]);
+            Debug.Log(values.InitialVelociy[2]);
+            Debug.Log(values.FinalVelocity[2]);
+            Debug.Log(values.Acceleration[2]);
+            Debug.Log(values.Time);
         }
         else
         {

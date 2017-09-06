@@ -8,6 +8,7 @@ public class SimulateController : MonoBehaviour {
     public static List<GameObject> ParticleInstances = new List<GameObject>();
     public static bool isSimulating;
 
+    private static float simulationTime;
     private static float _maxTime;
     private static float maxTime
     {
@@ -39,21 +40,6 @@ public class SimulateController : MonoBehaviour {
     public void SimulateControl(Particle values)
     {
         NEW__OnSimulateClicked();
-        /*
-        Vector3 Position = new Vector3(
-            values.Position[0],
-            values.Position[1],
-            values.Position[2]);
-
-        int ParticleSelected = UiController.instances.DropBoxParticle.value;
-        Particle.Instances[ParticleSelected].ParticleObject = Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject;
-        Vector3 Velocity = new Vector3(
-            values.FinalVelocity[0],
-            values.FinalVelocity[1],
-            values.FinalVelocity[2]);
-        Particle.Instances[ParticleSelected].ParticleObject.GetComponent<Rigidbody>().velocity = Velocity;
-        isSimulating = true;
-        */
     }
 
 	// Use this for initialization
@@ -63,33 +49,49 @@ public class SimulateController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        float deltaT = Time.fixedDeltaTime;
         if (isSimulating)
         {
-            int ParticleSelected = UiController.instances.DropBoxParticle.value;
-            UiController.instances.UpdateUI(Particle.Instances[ParticleSelected]);
-
-            CheckCollisions();
-            AccelerationControl();
+            for (int i =0;i<ParticleInstances.Count;i++)
+            {
+                UpdateVelocity(deltaT, i);
+                CheckCollisions(ParticleInstances[i], deltaT, i);
+                Debug.Log(ParticleInstances[i].GetComponent<Rigidbody>().velocity.y);
+            }
+            if (simulationTime >= maxTime)
+            {
+                isSimulating = false;
+                //Resetting velocity
+                for (int i = 0; i < ParticleInstances.Count; i++)
+                {
+                    ParticleInstances[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
+            }
+            simulationTime += deltaT;
         }
 
 
 
 	}
 
-    private static void AccelerationControl()
+    private void CheckCollisions(GameObject gameObject, float deltaT, int i)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
-    private static void CheckCollisions()
+    private void UpdateVelocity(float deltaT, int i)
     {
-        //Checking position of all Particles
-        throw new NotImplementedException();
+        Vector3 acceleration = new Vector3(
+            Particle.Instances[i].Acceleration[0],
+            Particle.Instances[i].Acceleration[1],
+            Particle.Instances[i].Acceleration[2]);
+        //V = u + at
+        ParticleInstances[i].GetComponent<Rigidbody>().velocity += deltaT * acceleration;
     }
 
     public static void NEW__OnSimulateClicked()
     {
+        ParticleInstances = new List<GameObject>();
         string tag = "Simulation";
         DestroyObjectsWithTag(tag);
 
@@ -106,6 +108,7 @@ public class SimulateController : MonoBehaviour {
             }
         }
         isSimulating = true;
+        simulationTime = 0;
     }
 
     private static void GetRadius()
@@ -130,19 +133,18 @@ public class SimulateController : MonoBehaviour {
             Particle.Instances[i].Position[1],
             Particle.Instances[i].Position[2]);
 
-        var temp = Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject;
+        ParticleInstances.Add(Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject);
 
         Vector3 Velocity = new Vector3(
-            Particle.Instances[i].FinalVelocity[0],
-            Particle.Instances[i].FinalVelocity[1],
-            Particle.Instances[i].FinalVelocity[2]);
-        temp.GetComponent<Rigidbody>().velocity = Velocity;
+            Particle.Instances[i].InitialVelociy[0],
+            Particle.Instances[i].InitialVelociy[1],
+            Particle.Instances[i].InitialVelociy[2]);
+        ParticleInstances[i].GetComponent<Rigidbody>().velocity = Velocity;
 
-        temp.transform.localScale = new Vector3(
+        ParticleInstances[i].transform.localScale = new Vector3(
             Radius,
             Radius,
             Radius);
-        ParticleInstances.Add(temp);
     }
 
     private static void GetSimulationSpeed()
@@ -150,7 +152,7 @@ public class SimulateController : MonoBehaviour {
         SimulationSpeed = UiController.instances.SliderSimulationSpeed.value;
     }
 
-    private static void DestroyObjectsWithTag(string tag)
+    public static void DestroyObjectsWithTag(string tag)
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
         for (int i =0;i<gameObjects.Length;i++)

@@ -177,6 +177,8 @@ public class UiController : MonoBehaviour {
 
     public void ResetUi()
     {
+        SimulateController.DestroyObjectsWithTag("Simulation");
+
         InputField_s_x.text = "";
         InputField_s_y.text = "";
         InputField_s_z.text = "";
@@ -202,6 +204,8 @@ public class UiController : MonoBehaviour {
         InputField_Mass.text = "";
         InputField_Radius.text = "";
         SliderRestitution.value = 0;
+
+
     }
     #endregion
 

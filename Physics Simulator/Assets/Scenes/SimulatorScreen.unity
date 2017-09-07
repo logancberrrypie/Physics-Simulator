@@ -6875,7 +6875,10 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+<<<<<<< HEAD
   m_SortingLayer: 0
+=======
+>>>>>>> 9a9d5e3af2b593b84d9ebd9ec00d6d38744772a1
   m_SortingOrder: 0
 --- !u!33 &1277000987
 MeshFilter:
@@ -7629,7 +7632,10 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+<<<<<<< HEAD
   m_SortingLayer: 0
+=======
+>>>>>>> 9a9d5e3af2b593b84d9ebd9ec00d6d38744772a1
   m_SortingOrder: 0
 --- !u!33 &1428895790
 MeshFilter:

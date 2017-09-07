@@ -53,12 +53,21 @@ public class UiController : MonoBehaviour {
     {
         Particle values = CalculateController.CalculateControl();
         SimulateController holder = new SimulateController();
-        holder.SimulateControl(values);
+        int dimentions = DropBoxDimention.value + 1;
+        if (dimentions <= 2)
+        {
+            SimulateController.Calculate_1D();
+        }
+        else
+        {
+            holder.SimulateControl(values);
+        }
     }
     public void OnDropBoxParticleChanged()
     {
         int size = DropBoxParticle.options.Count;
-        if (DropBoxParticle.value == size -1)
+        //Adding another options
+        if (DropBoxParticle.value == size -1 && SimulateController.isSimulating == false)
         {
             Dropdown.OptionData[] oldOptions = new Dropdown.OptionData[size+1];
             for (int i =0;i<size;i++)
@@ -177,6 +186,8 @@ public class UiController : MonoBehaviour {
 
     public void ResetUi()
     {
+        SimulateController.DestroyObjectsWithTag("Simulation");
+
         InputField_s_x.text = "";
         InputField_s_y.text = "";
         InputField_s_z.text = "";
@@ -202,6 +213,8 @@ public class UiController : MonoBehaviour {
         InputField_Mass.text = "";
         InputField_Radius.text = "";
         SliderRestitution.value = 0;
+
+
     }
     #endregion
 

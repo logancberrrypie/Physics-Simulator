@@ -11,6 +11,7 @@ public class UiController : MonoBehaviour {
     public GameObject Dimention_x, Dimention_y, Dimention_z;
     public Dropdown DropBoxDimention;
     public Dropdown DropBoxParticle;
+    public Dropdown DropBoxCameraTarget;
 
     //Displacement inputs
     public InputField InputField_s_x, InputField_s_y, InputField_s_z;
@@ -41,6 +42,22 @@ public class UiController : MonoBehaviour {
     public Slider SliderSimulationSpeed;
     #endregion
 
+    //Eventualy add a centre of mass location?
+    private void UpdateCameraTarget()
+    {
+        int size = DropBoxParticle.options.Count;
+        Dropdown.OptionData[] oldOptions = new Dropdown.OptionData[size + 1];
+        for (int i = 0; i < size; i++)
+        {
+            oldOptions[i] = DropBoxParticle.options[i];
+        }
+        DropBoxCameraTarget.options.Clear();
+        DropBoxCameraTarget.options.Add(new Dropdown.OptionData() { text = "Free Roam" });
+        for (int i = 0; i < size - 1; i++)
+        {
+            DropBoxCameraTarget.options.Add(oldOptions[i]);
+        }
+    }
 
     public void OnCalculateClicked()
     {
@@ -86,6 +103,7 @@ public class UiController : MonoBehaviour {
             DropBoxParticle.options.Add(new Dropdown.OptionData() { text = _text });
 
             DropBoxParticle.value = size-2;
+            UpdateCameraTarget();
         }
         int current = DropBoxParticle.value;
         try

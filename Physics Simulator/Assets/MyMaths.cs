@@ -62,6 +62,15 @@ public class MyMaths : MonoBehaviour {
         }
         return SquareRoot(SquaredMagnitude);
     }
+    public static float Vector_Magnitude(Vector3 a)
+    {
+        float SquaredMagnitude = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            SquaredMagnitude += Mathf.Pow(a[i], 2);
+        }
+        return SquareRoot(SquaredMagnitude);
+    }
 
     public static float DotProduct_Value(List<float> a, List<float> b)
     {
@@ -78,6 +87,15 @@ public class MyMaths : MonoBehaviour {
             }
             return counter;
         }
+    }
+    public static float DotProduct_Value(Vector3 a, Vector3 b)
+    {
+        float counter = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            counter += a[i] * b[i];
+        }
+        return counter;
     }
 
     public static float DotProduct_Angle(List<float> a, List<float> b)

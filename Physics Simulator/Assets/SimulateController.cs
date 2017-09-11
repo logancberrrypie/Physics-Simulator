@@ -144,6 +144,7 @@ public class SimulateController : MonoBehaviour {
             Radius,
             Radius,
             Radius);
+        ParticleInstances[i].GetComponent<ParticleInfomation>().index = i;
     }
 
     private static void GetSimulationSpeed()

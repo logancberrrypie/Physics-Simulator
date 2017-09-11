@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23580852048330590}
   - component: {fileID: 54973263119017600}
   - component: {fileID: 114274883359113732}
+  - component: {fileID: 114382234004626404}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Simulation
@@ -109,32 +110,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParticleObject: {fileID: 0}
-  Displacement:
-  - 0
-  - 0
-  - 0
-  InitialVelociy:
-  - 0
-  - 0
-  - 0
-  FinalVelocity:
-  - 0
-  - 0
-  - 0
-  Acceleration:
-  - 0
-  - 0
-  - 0
+  Displacement: {x: 0, y: 0, z: 0}
+  InitialVelociy: {x: 0, y: 0, z: 0}
+  FinalVelocity: {x: 0, y: 0, z: 0}
+  Acceleration: {x: 0, y: 0, z: 0}
   Time: 0
-  Position:
-  - 0
-  - 0
-  - 0
+  Position: {x: 0, y: 0, z: 0}
   Key:
   - 3030303030
   - 3030303030
   - 3030303030
   inValidInput: 000000
+--- !u!114 &114382234004626404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546450745761776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e853116ec26d88444b7c53c0f04651b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
 --- !u!135 &135538505822950244
 SphereCollider:
   m_ObjectHideFlags: 1

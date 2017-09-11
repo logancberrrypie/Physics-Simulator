@@ -9,12 +9,12 @@ public class Particle : MonoBehaviour
 
     public GameObject ParticleObject;
 
-    public float[] Displacement = new float[3];
-    public float[] InitialVelociy = new float[3];
-    public float[] FinalVelocity = new float[3];
-    public float[] Acceleration = new float[3];
+    public Vector3 Displacement = new Vector3();
+    public Vector3 InitialVelociy = new Vector3();
+    public Vector3 FinalVelocity = new Vector3();
+    public Vector3 Acceleration = new Vector3();
     public float Time;
-    public float[] Position = new float[3];
+    public Vector3 Position = new Vector3();
 
 
     public string[] Key = new string[3] { "00000", "00000", "00000" };
@@ -51,7 +51,7 @@ public class Particle : MonoBehaviour
         }
     }
 
-    private float restitution;
+    private float restitution = 1;
     public float Restitution
     {
         get { return restitution; }

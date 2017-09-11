@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     private float speedMod = 0.8f;
     private float freeSpeed = 0.5f;
     private bool isFreeRoam;
+    float zoomMod = 10f;
 
     private static bool CameraExists;
     // Use this for initialization
@@ -45,7 +46,6 @@ public class CameraController : MonoBehaviour
             isFreeRoam = false;
             try {
                 followTarget = SimulateController.ParticleInstances[particle - 1];
-                Debug.Log("Target found");
                 moveSpeed = SimulateController.ParticleInstances[particle-1].GetComponent<Rigidbody>().velocity.magnitude * speedMod;
                 TargetPosition = new Vector3(
                     followTarget.transform.position.x + buffer,
@@ -68,6 +68,9 @@ public class CameraController : MonoBehaviour
                 input_x,
                 input_y,
                 0.0f).normalized * freeSpeed;
+
+            float input_scroll = Input.GetAxisRaw("Mouse ScrollWheel");
+            gameObject.GetComponent<Camera>().fieldOfView -= zoomMod * input_scroll;
 
         }
 

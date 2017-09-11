@@ -39,14 +39,14 @@ public class CameraController : MonoBehaviour
         {
             //Free roam
             isFreeRoam = true;
-
         }
         else
         {
             isFreeRoam = false;
-            try {
+            try
+            {
                 followTarget = SimulateController.ParticleInstances[particle - 1];
-                moveSpeed = SimulateController.ParticleInstances[particle-1].GetComponent<Rigidbody>().velocity.magnitude * speedMod;
+                moveSpeed = SimulateController.ParticleInstances[particle - 1].GetComponent<Rigidbody>().velocity.magnitude * speedMod;
                 TargetPosition = new Vector3(
                     followTarget.transform.position.x + buffer,
                     followTarget.transform.position.y + buffer,
@@ -57,9 +57,7 @@ public class CameraController : MonoBehaviour
             {
 
             }
-
         }
-
         if (isFreeRoam)
         {
             float input_x = Input.GetAxisRaw("Horizontal");
@@ -71,9 +69,6 @@ public class CameraController : MonoBehaviour
 
             float input_scroll = Input.GetAxisRaw("Mouse ScrollWheel");
             gameObject.GetComponent<Camera>().fieldOfView -= zoomMod * input_scroll;
-
         }
-
-
     }
 }

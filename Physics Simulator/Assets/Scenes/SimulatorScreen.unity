@@ -762,11 +762,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 223704408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38b83630ba944b14e9e19e47acd8991d, type: 3}
+  m_Script: {fileID: 11500000, guid: f01c16beb8805be4d848f97016e80c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab_Sphere: {fileID: 1130193166512238, guid: 23ceb88d7ada9664fbd4e9e54025e5f5,
-    type: 2}
 --- !u!1 &223937362
 GameObject:
   m_ObjectHideFlags: 0
@@ -5608,9 +5606,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 360504369}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 16
+  m_MaxValue: 2
   m_WholeNumbers: 0
-  m_Value: 8
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6126,7 +6124,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Speed = 8.0x
+  m_Text: Speed = 1.0x
 --- !u!222 &1011500766
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6526,6 +6524,7 @@ GameObject:
   - component: {fileID: 1096400381}
   - component: {fileID: 1096400380}
   - component: {fileID: 1096400379}
+  - component: {fileID: 1096400385}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -6544,6 +6543,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4fa10b38cbe374c8ad8239b922612c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followTarget: {fileID: 0}
+  TargetPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 0
+  buffer: 0.1
+  speedMod: 0.8
+  freeSpeed: 0.5
+  isFreeRoam: 0
+  zoomMod: 10
+  defaultFOV: 60
 --- !u!81 &1096400380
 AudioListener:
   m_ObjectHideFlags: 0
@@ -6612,6 +6620,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096400385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096400378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd68dd58927fc284aac2e627c03ac145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1097416381
 GameObject:
   m_ObjectHideFlags: 0

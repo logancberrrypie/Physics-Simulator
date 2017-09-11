@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuvatSolvers : MonoBehaviour {
+public class SuvatSolvers : MonoBehaviour
+{
 
     public static Particle FindEquation(Particle values)
     {
@@ -31,7 +32,7 @@ public class SuvatSolvers : MonoBehaviour {
         //The emergency escape incase something goes wrong
         int j = 0;
         int maxj = 10;
-        while ( ((values.GetNumberOfInputs()[0] != 5 && values.GetNumberOfInputs()[1] != 5 && values.GetNumberOfInputs()[2] != 5) || (values.inValidInput[0] == false || values.inValidInput[1] == false || values.inValidInput[2] == false)) && (j < maxj))
+        while (((values.GetNumberOfInputs()[0] != 5 && values.GetNumberOfInputs()[1] != 5 && values.GetNumberOfInputs()[2] != 5) || (values.inValidInput[0] == false || values.inValidInput[1] == false || values.inValidInput[2] == false)) && (j < maxj))
         {
             if (values.GetNumberOfInputs()[0] >= 3)
             {
@@ -224,7 +225,6 @@ public class SuvatSolvers : MonoBehaviour {
             {
                 values.inValidInput[i] = true;
             }
-
         }
         else
         {
@@ -233,7 +233,6 @@ public class SuvatSolvers : MonoBehaviour {
             values.Key[1] = ReplaceAtIndex(4, '1', values.Key[1]);
             values.Key[2] = ReplaceAtIndex(4, '1', values.Key[2]);
         }
-
     }
 
     public static string ReplaceAtIndex(int index, char value, string word)

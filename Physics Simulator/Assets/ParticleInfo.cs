@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleInfomation : MonoBehaviour {
+public class ParticleInfo : MonoBehaviour {
 
     public int index;
 

@@ -1,60 +1,56 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CalculateController {
-
+public class CalculateController : MonoBehaviour {
 
     public static Particle CalculateControl()
     {
         Particle values = new Particle();
-        //1 = 1D
-        //2 = 2D
-        //3 = 3D
         int dimentions = UiController.instances.DropBoxDimention.value + 1;
-        Debug.Log("Number of dimentions :" + dimentions);
+        //Getting Suvatr inputs in all dimentions
+        #region Suvat Inputs
         if (dimentions >= 1)
         {
             GetInput_Suvat_x(ref values);
-        }
-        if (dimentions >= 2)
-        {
-            GetInput_Suvat_y(ref values);
+            if (dimentions >= 2)
+            {
+                GetInput_Suvat_y(ref values);
+                if (dimentions >= 3)
+                {
+                    GetInput_Suvat_z(ref values);
+                }
+                else
+                {
+                    values.inValidInput[2] = true;
+                }
+            }
+            else
+            {
+                values.inValidInput[1] = true;
+                values.inValidInput[2] = true;
+            }
         }
         else
         {
-            values.inValidInput[1] = true;
+            values.inValidInput[0] = true;
         }
-        if (dimentions >= 3)
-        {
-            Debug.Log("Dimentions 3 ran");
-            GetInput_Suvat_z(ref values);
-            Debug.Log(values.Displacement[2]);
-            Debug.Log(values.InitialVelociy[2]);
-            Debug.Log(values.FinalVelocity[2]);
-            Debug.Log(values.Acceleration[2]);
-            Debug.Log(values.Time);
-        }
-        else
-        {
-            values.inValidInput[2] = true;
-        }
+        #endregion
+
+        //Get misc values
         GetInput_Misc(ref values);
         Particle finsihed = ValidationCheck(ref values);
         try
         {
             Particle.Instances[UiController.instances.DropBoxParticle.value] = finsihed;
         }
-        catch(ArgumentOutOfRangeException e)
+        catch (System.ArgumentOutOfRangeException e)
         {
             Particle.Instances.Add(finsihed);
         }
 
         return finsihed;
     }
-
     private static Particle ValidationCheck(ref Particle values)
     {
         //If one of the axis has more than or equal to 3 inputs (then the program can calculate)
@@ -70,17 +66,7 @@ public class CalculateController {
             string msg = "You must input atleast 3 quantities in one of the dimentions";
             MessageBox(msg);
         }
-        //All the dimentions are valid
-        if (values.inValidInput[0] == false || values.inValidInput[1] == false || values.inValidInput[2] == false)
-        {
-            UiController.instances.UpdateUI(values);
-            //Program has now ended
-        }
-        else
-        {
-            string msg = "Your inputs are impossible inside of the real domain.";
-            MessageBox(msg);
-        }
+        Debug.Log("Validation check done");
         return values;
     }
 
@@ -297,7 +283,7 @@ public class CalculateController {
             values.Mass = 1;
         }
         values.Restitution = Ui.SliderRestitution.value;
-        if (Ui.InputField_Radius.text != "")
+        if (Ui.InputField_Radius.text != "" && Ui.InputField_Radius.text != "0")
         {
             values.Radius = float.Parse(Ui.InputField_Radius.text);
         }
@@ -313,7 +299,8 @@ public class CalculateController {
     private static void MessageBox(string msg)
     {
         Debug.Log(msg);
-        //throw new NotImplementedException();
+        throw new System.NotImplementedException();
     }
+
 
 }

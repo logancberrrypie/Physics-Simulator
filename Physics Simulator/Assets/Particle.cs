@@ -7,8 +7,6 @@ public class Particle : MonoBehaviour
 {
     public static List<Particle> Instances = new List<Particle>();
 
-    public GameObject ParticleObject;
-
     public Vector3 Displacement = new Vector3();
     public Vector3 InitialVelociy = new Vector3();
     public Vector3 FinalVelocity = new Vector3();
@@ -38,20 +36,9 @@ public class Particle : MonoBehaviour
     public float Mass
     {
         get { return mass; }
-        set
-        {
-            if (value >= 0)
-            {
-                mass = value;
-            }
-            else
-            {
-                mass = -value;
-            }
-        }
+        set { mass = MyMaths.Magnitude(mass); }
     }
-
-    private float restitution = 1;
+    private float restitution;
     public float Restitution
     {
         get { return restitution; }
@@ -61,16 +48,12 @@ public class Particle : MonoBehaviour
             MyMaths.Clamp(restitution, 0, 1);
         }
     }
-
     private float radius;
     public float Radius
     {
         get { return radius; }
         set { radius = MyMaths.Magnitude(value); }
     }
-
-
-
     private void updateNumberOfInputs()
     {
         for (int i = 0; i < 3; i++)

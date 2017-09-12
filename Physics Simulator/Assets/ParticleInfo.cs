@@ -38,7 +38,7 @@ public class ParticleInfo : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collided");
-        if (hasCollided == false)
+        if (hasCollided == false && other.gameObject.tag == "Simulation")
         {
             other.gameObject.GetComponent<ParticleInfo>().hasCollided = true;
             hasCollided = true;

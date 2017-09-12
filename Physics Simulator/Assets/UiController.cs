@@ -229,7 +229,7 @@ public class UiController : MonoBehaviour {
 
         InputField_Mass.text = "";
         InputField_Radius.text = "";
-        SliderRestitution.value = 0;
+        SliderRestitution.value = 1;
 
 
     }

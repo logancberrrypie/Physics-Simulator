@@ -32,11 +32,11 @@ public class Particle : MonoBehaviour
         _NumberOfInputs[index] = value;
     }
 
-    private float mass;
+    private float mass = 1;
     public float Mass
     {
         get { return mass; }
-        set { mass = MyMaths.Magnitude(mass); }
+        set { mass = MyMaths.Magnitude(value); }
     }
     private float restitution;
     public float Restitution

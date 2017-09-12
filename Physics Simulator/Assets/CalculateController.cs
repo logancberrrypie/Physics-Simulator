@@ -39,6 +39,7 @@ public class CalculateController : MonoBehaviour {
 
         //Get misc values
         GetInput_Misc(ref values);
+        Debug.Log("Mass = " + values.Mass);
         Particle finsihed = ValidationCheck(ref values);
         try
         {
@@ -273,7 +274,7 @@ public class CalculateController : MonoBehaviour {
         //Creating local instance of the object for simpler name + read only
         UiController Ui = UiController.instances;
 
-        if (Ui.InputField_Mass.text != "")
+        if (Ui.InputField_Mass.text != "" && Ui.InputField_Mass.text != "0")
         {
             values.Mass = float.Parse(Ui.InputField_Mass.text);
         }

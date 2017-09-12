@@ -3,7 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimulateController : MonoBehaviour {
+public class SimulateController : MonoBehaviour
+{
+    #region TODO
+    //Contioue simulation by clicking play
+    //Adding pause
+    //Adding restart simulation
+    //Simulation Speed
+    //Gravity in simulation
+    //Can collide toggle
+    //Colisions in simulations
+    //Changing time element on UI as simulation occuirs
+    //Updating values of Suvat while simulation is running then resetting them
+    //Scrolling backgound
+    //Simulation graphs
+    
+
+
+
 
     public static List<GameObject> ParticleInstances = new List<GameObject>();
     public static bool isSimulating;
@@ -28,34 +45,15 @@ public class SimulateController : MonoBehaviour {
         }
     }
 
-    public static float _Radius;
-    public static float Radius
+    void Update()
     {
-        set { _Radius = MyMaths.Magnitude(value); }
-        get { return _Radius; }
-    }
-
-    public GameObject Prefab_Sphere;
-
-    public void SimulateControl(Particle values)
-    {
-        NEW__OnSimulateClicked();
-    }
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
         float deltaT = Time.fixedDeltaTime;
         if (isSimulating)
         {
-            for (int i =0;i<ParticleInstances.Count;i++)
+            for (int i = 0; i < ParticleInstances.Count; i++)
             {
                 UpdateVelocity(deltaT, i);
-                CheckCollisions(ParticleInstances[i], deltaT, i);
+                //CheckCollisions(ParticleInstances[i], deltaT, i);
             }
             if (simulationTime >= maxTime)
             {
@@ -68,105 +66,17 @@ public class SimulateController : MonoBehaviour {
             }
             simulationTime += deltaT;
         }
-
-
-
-	}
-
-    private void CheckCollisions(GameObject gameObject, float deltaT, int i)
-    {
-        //throw new NotImplementedException();
     }
 
-    private void UpdateVelocity(float deltaT, int i)
-    {
-        Vector3 acceleration = new Vector3(
-            Particle.Instances[i].Acceleration[0],
-            Particle.Instances[i].Acceleration[1],
-            Particle.Instances[i].Acceleration[2]);
-        //V = u + at
-        ParticleInstances[i].GetComponent<Rigidbody>().velocity += deltaT * acceleration;
-    }
-
-    public static void NEW__OnSimulateClicked()
+    public static void OnSimulateClicked()
     {
         ParticleInstances = new List<GameObject>();
         string tag = "Simulation";
         DestroyObjectsWithTag(tag);
 
         maxTime = 0;
+        //Simulation speed of ingame time
         GetSimulationSpeed();
-        GetRadius();
-
-        for (int i = 0;i<Particle.Instances.Count;i++)
-        {
-            InstatiateParticle(i);
-            if (Particle.Instances[i].Time > maxTime)
-            {
-                maxTime = Particle.Instances[i].Time;
-            }
-        }
-        isSimulating = true;
-        simulationTime = 0;
-    }
-
-    private static void GetRadius()
-    {
-        string tmp = UiController.instances.InputField_Radius.text;
-        //Radius cannot be NULL and cannot be 0
-        if (tmp == "" || Radius == '0')
-        {
-            //Default radius size is 1
-            Radius = 1;
-        }
-        else
-        {
-            Radius = float.Parse(UiController.instances.InputField_Radius.text);
-        }
-    }
-
-    private static void InstatiateParticle(int i)
-    {
-        Vector3 Position = new Vector3(
-            Particle.Instances[i].Position[0],
-            Particle.Instances[i].Position[1],
-            Particle.Instances[i].Position[2]);
-
-        ParticleInstances.Add(Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject);
-
-        Vector3 Velocity = new Vector3(
-            Particle.Instances[i].InitialVelociy[0],
-            Particle.Instances[i].InitialVelociy[1],
-            Particle.Instances[i].InitialVelociy[2]);
-        ParticleInstances[i].GetComponent<Rigidbody>().velocity = Velocity;
-
-        ParticleInstances[i].transform.localScale = new Vector3(
-            Radius,
-            Radius,
-            Radius);
-    }
-
-    private static void GetSimulationSpeed()
-    {
-        SimulationSpeed = UiController.instances.SliderSimulationSpeed.value;
-    }
-
-    public static void DestroyObjectsWithTag(string tag)
-    {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
-        for (int i =0;i<gameObjects.Length;i++)
-        {
-            Destroy(gameObjects[i]);
-        }
-    }
-    public static void Calculate_1D()
-    {
-        ParticleInstances = new List<GameObject>();
-        string tag = "Simulation";
-        DestroyObjectsWithTag(tag);
-        maxTime = 0;
-        GetSimulationSpeed();
-        GetRadius();
         for (int i = 0; i < Particle.Instances.Count; i++)
         {
             InstatiateParticle(i);
@@ -177,5 +87,65 @@ public class SimulateController : MonoBehaviour {
         }
         isSimulating = true;
         simulationTime = 0;
+    }
+
+    private static void InstatiateParticle(int index)
+    {
+
+        Vector3 Position = getPosition(index);
+        Vector3 Velocity = getVelocity(index);
+
+        ParticleInstances.Add(Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject);
+        ParticleInstances[index].GetComponent<Rigidbody>().velocity = Velocity;
+        ParticleInstances[index].GetComponent<ParticleInfo>().index = index;
+
+
+        float Radius = Particle.Instances[index].Radius;
+
+        ParticleInstances[index].transform.localScale = new Vector3(
+            Radius,
+            Radius,
+            Radius);
+    }
+
+    private static Vector3 getPosition(int index)
+    {
+        Vector3 Position = new Vector3(
+            Particle.Instances[index].Position[0],
+            Particle.Instances[index].Position[1],
+            Particle.Instances[index].Position[2]);
+        return Position;
+    }
+    private static Vector3 getVelocity(int index)
+    {
+        Vector3 Velocity = new Vector3(
+            Particle.Instances[index].InitialVelociy[0],
+            Particle.Instances[index].InitialVelociy[1],
+            Particle.Instances[index].InitialVelociy[2]);
+        return Velocity;
+    }
+
+
+    public static void DestroyObjectsWithTag(string tag)
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
+    }
+    private static void GetSimulationSpeed()
+    {
+        SimulationSpeed = UiController.instances.SliderSimulationSpeed.value;
+    }
+
+    private void UpdateVelocity(float deltaT, int index)
+    {
+        Vector3 acceleration = new Vector3(
+            Particle.Instances[index].Acceleration[0],
+            Particle.Instances[index].Acceleration[1],
+            Particle.Instances[index].Acceleration[2]);
+        //V = u + at
+        ParticleInstances[index].GetComponent<Rigidbody>().velocity += deltaT * acceleration;
     }
 }

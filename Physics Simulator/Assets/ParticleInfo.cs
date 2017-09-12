@@ -7,7 +7,6 @@ public class ParticleInfo : MonoBehaviour {
 
     public int index;
     public Vector3 Velocity;
-    public bool hasCollided;
 
     private void Update()
     {
@@ -37,66 +36,45 @@ public class ParticleInfo : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasCollided == false)
+        Debug.Log("Triggered");
+        New__CalculateCollision(gameObject.GetComponent<ParticleInfo>(), gameObject.GetComponent<ParticleInfo>());
+        Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.x);
+        Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.y);
+        Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.z);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided");
+        if (collision.gameObject.tag == "Simulation")
         {
-            other.gameObject.GetComponent<ParticleInfo>().hasCollided = true;
-            hasCollided = true;
-            int index = other.GetComponent<ParticleInfo>().index;
-            Debug.Log("Triggered");
-            Debug.Log(other.GetComponent<ParticleInfo>().Velocity);
-            Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity);
-
-
-            New__CalculateCollision(gameObject.GetComponent<ParticleInfo>(), other.GetComponent<ParticleInfo>());
-            Debug.Log("---------------------");
+            New__CalculateCollision(gameObject.GetComponent<ParticleInfo>(), gameObject.GetComponent<ParticleInfo>());
             Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.x);
             Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.y);
             Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.z);
         }
+    }
 
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        other.gameObject.GetComponent<ParticleInfo>().hasCollided = false;
-        hasCollided = false;
-    }
     public static void New__CalculateCollision(ParticleInfo first, ParticleInfo second)
     {
         //Getting unit direction vector
         Vector3 deltaPosition = first.transform.position - second.transform.position;
-
         Vector3 unitDirection = (deltaPosition) / (MyMaths.Vector_Magnitude(deltaPosition));
 
-        Debug.Log(deltaPosition);
-        Debug.Log(unitDirection);
-
         //Getting velocity parrlele and perpendicular before colllisiosn
-        Vector3 FirstParrelleVelocity = CalculateParrelelVelocity(first.Velocity, unitDirection);
+        Vector3 FirstParrelleVelocity = CalculateParrelelVelocity(second.Velocity, unitDirection);
         Vector3 FirstPerpendicularVelocity = first.Velocity - FirstParrelleVelocity;
-
-        Debug.Log(FirstParrelleVelocity);
-        Debug.Log(FirstPerpendicularVelocity);
 
         Vector3 SecondParrelleVelocity = CalculateParrelelVelocity(second.Velocity, unitDirection);
         Vector3 SecondPerpendicularVelocity = second.Velocity - SecondParrelleVelocity;
-
-        Debug.Log(SecondParrelleVelocity);
-        Debug.Log(SecondPerpendicularVelocity);
 
         float first_e = Particle.Instances[first.index].Restitution;
         float second_e = Particle.Instances[second.index].Restitution;
         float e = first_e * second_e;
 
-        Debug.Log(first_e);
-        Debug.Log(second_e);
-        Debug.Log(e);
-
 
         float m = Particle.Instances[first.index].Mass;
         float M = Particle.Instances[second.index].Mass;
-
-        Debug.Log(m);
-        Debug.Log(M);
 
 
         first.Velocity = CalculateAfterVelocityFirst(m, M, FirstParrelleVelocity, SecondParrelleVelocity, e) + FirstPerpendicularVelocity;

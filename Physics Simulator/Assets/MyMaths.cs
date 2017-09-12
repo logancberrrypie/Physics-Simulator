@@ -50,6 +50,9 @@ public class MyMaths : MonoBehaviour
         }
         return value;
     }
+
+
+    //Vector_magnitude requires an overload for List<float> n dimentional vetors and Vector3's
     public static float Vector_Magnitude(List<float> a)
     {
         float SquaredMagnitude = 0;
@@ -59,6 +62,19 @@ public class MyMaths : MonoBehaviour
         }
         return SquareRoot(SquaredMagnitude);
     }
+    public static float Vector_Magnitude(Vector3 a)
+    {
+        float SquaredMagnitude = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            SquaredMagnitude += Mathf.Pow(a[i], 2);
+        }
+        return SquareRoot(SquaredMagnitude);
+    }
+
+
+
+
     public static float DotProduct_Value(List<float> a, List<float> b)
     {
         if (a.Count != b.Count)
@@ -74,6 +90,16 @@ public class MyMaths : MonoBehaviour
             }
             return counter;
         }
+    }
+    //Overload for vector3 type insted of list<float>
+    public static float DotProduct_Value(Vector3 a, Vector3 b)
+    {
+        float counter = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            counter += a[i] * b[i];
+        }
+        return counter;
     }
     public static float DotProduct_Angle(List<float> a, List<float> b)
     {

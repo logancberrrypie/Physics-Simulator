@@ -66,7 +66,6 @@ public class CalculateController : MonoBehaviour {
             string msg = "You must input atleast 3 quantities in one of the dimentions";
             MessageBox(msg);
         }
-        Debug.Log("Validation check done");
         return values;
     }
 

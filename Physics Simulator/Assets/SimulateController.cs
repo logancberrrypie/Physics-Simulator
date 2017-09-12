@@ -17,7 +17,7 @@ public class SimulateController : MonoBehaviour
     //Updating values of Suvat while simulation is running then resetting them
     //Scrolling backgound
     //Simulation graphs
-    
+#endregion
 
 
 
@@ -50,18 +50,13 @@ public class SimulateController : MonoBehaviour
         float deltaT = Time.fixedDeltaTime;
         if (isSimulating)
         {
-            for (int i = 0; i < ParticleInstances.Count; i++)
-            {
-                UpdateVelocity(deltaT, i);
-                //CheckCollisions(ParticleInstances[i], deltaT, i);
-            }
             if (simulationTime >= maxTime)
             {
                 isSimulating = false;
                 //Resetting velocity
                 for (int i = 0; i < ParticleInstances.Count; i++)
                 {
-                    ParticleInstances[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    ParticleInstances[i].GetComponent<ParticleInfo>().Velocity = Vector3.zero;
                 }
             }
             simulationTime += deltaT;
@@ -96,7 +91,7 @@ public class SimulateController : MonoBehaviour
         Vector3 Velocity = getVelocity(index);
 
         ParticleInstances.Add(Instantiate(Resources.Load("Sphere"), Position, Quaternion.identity) as GameObject);
-        ParticleInstances[index].GetComponent<Rigidbody>().velocity = Velocity;
+        ParticleInstances[index].GetComponent<ParticleInfo>().Velocity = Velocity;
         ParticleInstances[index].GetComponent<ParticleInfo>().index = index;
 
 
@@ -137,15 +132,5 @@ public class SimulateController : MonoBehaviour
     private static void GetSimulationSpeed()
     {
         SimulationSpeed = UiController.instances.SliderSimulationSpeed.value;
-    }
-
-    private void UpdateVelocity(float deltaT, int index)
-    {
-        Vector3 acceleration = new Vector3(
-            Particle.Instances[index].Acceleration[0],
-            Particle.Instances[index].Acceleration[1],
-            Particle.Instances[index].Acceleration[2]);
-        //V = u + at
-        ParticleInstances[index].GetComponent<Rigidbody>().velocity += deltaT * acceleration;
     }
 }

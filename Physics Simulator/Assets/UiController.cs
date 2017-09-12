@@ -62,7 +62,6 @@ public class UiController : MonoBehaviour {
     public void OnCalculateClicked()
     {
         //prints to console
-        Debug.Log("Button Clicked");
         CalculateController.CalculateControl();
     }
 

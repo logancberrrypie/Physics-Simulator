@@ -62,22 +62,21 @@ public class UiController : MonoBehaviour {
     public void OnCalculateClicked()
     {
         //prints to console
-        Debug.Log("Button Clicked");
         CalculateController.CalculateControl();
     }
 
     public void OnSimulateClicked()
     {
         Particle values = CalculateController.CalculateControl();
-        SimulateController holder = new SimulateController();
         int dimentions = DropBoxDimention.value + 1;
         if (dimentions <= 2)
         {
-            SimulateController.Calculate_1D();
+            SimulateController.OnSimulateClicked();
         }
         else
         {
-            holder.SimulateControl(values);
+            //For when I want diffrent camera angles
+            SimulateController.OnSimulateClicked();
         }
     }
     public void OnDropBoxParticleChanged()
@@ -230,7 +229,7 @@ public class UiController : MonoBehaviour {
 
         InputField_Mass.text = "";
         InputField_Radius.text = "";
-        SliderRestitution.value = 0;
+        SliderRestitution.value = 1;
 
 
     }

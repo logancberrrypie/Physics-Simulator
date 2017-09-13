@@ -753,6 +753,8 @@ MonoBehaviour:
   InputField_Mass: {fileID: 1567512380}
   LabelSimulationSpeed: {fileID: 1011500765}
   SliderSimulationSpeed: {fileID: 952945633}
+  ToggleGravity: {fileID: 57414978}
+  ToggleCollisions: {fileID: 1263085324}
 --- !u!224 &223704410
 RectTransform:
   m_ObjectHideFlags: 0

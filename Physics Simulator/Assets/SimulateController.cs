@@ -9,7 +9,6 @@ public class SimulateController : MonoBehaviour
     //Contioue simulation by clicking play
     //Adding pause
     //Adding restart simulation
-    //Simulation Speed
     //Gravity in simulation
     //Can collide toggle
     //Colisions in simulations

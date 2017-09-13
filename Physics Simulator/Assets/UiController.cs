@@ -42,6 +42,9 @@ public class UiController : MonoBehaviour {
     public Slider SliderSimulationSpeed;
     #endregion
 
+    public Toggle ToggleGravity;
+    public Toggle ToggleCollisions;
+
     //Eventualy add a centre of mass location?
     private void UpdateCameraTarget()
     {
@@ -231,6 +234,8 @@ public class UiController : MonoBehaviour {
         InputField_Radius.text = "";
         SliderRestitution.value = 1;
 
+        ToggleGravity.isOn = true;
+        ToggleCollisions.isOn = true;
 
     }
     #endregion

@@ -39,7 +39,6 @@ public class CalculateController : MonoBehaviour {
 
         //Get misc values
         GetInput_Misc(ref values);
-        Debug.Log("Mass = " + values.Mass);
         Particle finsihed = ValidationCheck(ref values);
         try
         {
@@ -291,6 +290,9 @@ public class CalculateController : MonoBehaviour {
         {
             values.Radius = 1;
         }
+
+        values.HasGravity = UiController.instances.ToggleGravity.isOn;
+        values.canCollide = UiController.instances.ToggleCollisions.isOn;
     }
 
     #endregion

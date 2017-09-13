@@ -13,6 +13,8 @@ public class Particle : MonoBehaviour
     public Vector3 Acceleration = new Vector3();
     public float Time;
     public Vector3 Position = new Vector3();
+    public bool canCollide;
+    public bool HasGravity;
 
 
     public string[] Key = new string[3] { "00000", "00000", "00000" };

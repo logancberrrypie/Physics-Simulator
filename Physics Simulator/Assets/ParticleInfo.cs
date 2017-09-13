@@ -38,22 +38,13 @@ public class ParticleInfo : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided");
-        if (hasCollided == false && other.gameObject.tag == "Simulation")
+        int otherIndex = other.gameObject.GetComponent<ParticleInfo>().index;
+        if (hasCollided == false && other.gameObject.tag == "Simulation" && Particle.Instances[otherIndex].canCollide == true && Particle.Instances[index].canCollide == true)
         {
             other.gameObject.GetComponent<ParticleInfo>().hasCollided = true;
             hasCollided = true;
             int index = other.GetComponent<ParticleInfo>().index;
-            Debug.Log("Triggered");
-            Debug.Log(other.GetComponent<ParticleInfo>().Velocity);
-            Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity);
-
-
             New__CalculateCollision(gameObject.GetComponent<ParticleInfo>(), other.GetComponent<ParticleInfo>());
-            Debug.Log("---------------------");
-            Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.x);
-            Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.y);
-            Debug.Log(gameObject.GetComponent<ParticleInfo>().Velocity.z);
         }
 
     }
@@ -69,37 +60,19 @@ public class ParticleInfo : MonoBehaviour {
 
         Vector3 unitDirection = (deltaPosition) / (MyMaths.Vector_Magnitude(deltaPosition));
 
-        Debug.Log(deltaPosition);
-        Debug.Log(unitDirection);
-
         //Getting velocity parrlele and perpendicular before colllisiosn
         Vector3 FirstParrelleVelocity = CalculateParrelelVelocity(first.Velocity, unitDirection);
         Vector3 FirstPerpendicularVelocity = first.Velocity - FirstParrelleVelocity;
 
-        Debug.Log(FirstParrelleVelocity);
-        Debug.Log(FirstPerpendicularVelocity);
-
         Vector3 SecondParrelleVelocity = CalculateParrelelVelocity(second.Velocity, unitDirection);
         Vector3 SecondPerpendicularVelocity = second.Velocity - SecondParrelleVelocity;
-
-        Debug.Log(SecondParrelleVelocity);
-        Debug.Log(SecondPerpendicularVelocity);
 
         float first_e = Particle.Instances[first.index].Restitution;
         float second_e = Particle.Instances[second.index].Restitution;
         float e = first_e * second_e;
 
-        Debug.Log(first_e);
-        Debug.Log(second_e);
-        Debug.Log(e);
-
-
         float m = Particle.Instances[first.index].Mass;
         float M = Particle.Instances[second.index].Mass;
-
-        Debug.Log(m);
-        Debug.Log(M);
-
 
         first.Velocity = CalculateAfterVelocityFirst(m, M, FirstParrelleVelocity, SecondParrelleVelocity, e) + FirstPerpendicularVelocity;
         second.Velocity = CalculateAfterVelocitySecond(m, M, FirstParrelleVelocity, SecondParrelleVelocity, e) + FirstPerpendicularVelocity;

@@ -13,7 +13,8 @@ public class ParticleInfo : MonoBehaviour {
     {
         if (SimulateController.isSimulating == true)
         {
-            float deltaT = Time.fixedDeltaTime;
+            //Puts change of time in terms of the simulation slider(static variable)
+            float deltaT = Time.fixedDeltaTime * SimulateController.SimulationSpeed;
             UpdateVelocity(deltaT);
             Move(deltaT);
         }

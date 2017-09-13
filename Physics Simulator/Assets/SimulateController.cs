@@ -47,7 +47,8 @@ public class SimulateController : MonoBehaviour
 
     void Update()
     {
-        float deltaT = Time.fixedDeltaTime;
+        GetSimulationSpeed();
+        float deltaT = Time.fixedDeltaTime * SimulationSpeed;
         if (isSimulating)
         {
             if (simulationTime >= maxTime)

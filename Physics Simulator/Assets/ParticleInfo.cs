@@ -6,10 +6,21 @@ using UnityEngine;
 public class ParticleInfo : MonoBehaviour {
 
     public int index;
-    public Vector3 Velocity;
+    public Vector3 initialPosition;
+
+    public Vector3 Velocity
+    {
+        get { return Particle.Instances[index].FinalVelocity; }
+        set { Particle.Instances[index].FinalVelocity = value; }
+    }
     public bool hasCollided;
 
-    public float GraviationalConstant = 6.6740831f * Mathf.Pow(10, -11); 
+    public float GraviationalConstant = 6.6740831f * Mathf.Pow(10, -11);
+
+    private void Start()
+    {
+        initialPosition = Particle.Instances[index].Position;
+    }
 
     private void Update()
     {
@@ -18,6 +29,7 @@ public class ParticleInfo : MonoBehaviour {
             //Puts change of time in terms of the simulation slider(static variable)
             float deltaT = Time.fixedDeltaTime * SimulateController.SimulationSpeed;
             UpdateVelocity(deltaT);
+            UpdatePositionValue();
             if (Particle.Instances[index].HasGravity == true)
             {
                 Debug.Log("Gravity ran");
@@ -30,6 +42,12 @@ public class ParticleInfo : MonoBehaviour {
             
             //Velocity = Vector3.zero;
         }
+    }
+
+    private void UpdatePositionValue()
+    {
+        Vector3 changeP = transform.position - initialPosition;
+        Particle.Instances[index].Displacement = changeP;
     }
 
     private void UpdateGravity(float deltaT)

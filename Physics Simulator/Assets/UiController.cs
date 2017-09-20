@@ -54,6 +54,21 @@ public class UiController : MonoBehaviour {
         UpdateTimeLabel();
     }
 
+    public void OnResetSimulationClikced()
+    {
+        int particleSelected = DropBoxParticle.value;
+        for (int i =0;i<Particle.Instances.Count;i++)
+        {
+            Particle.Instances[i] = Particle.Instances[i].beforeSimulation;
+        }
+        UpdateUI(Particle.Instances[particleSelected]);
+
+        string tag = "Simulation";
+        SimulateController.DestroyObjectsWithTag(tag);
+
+        SimulateController.isSimulating = false;
+    }
+
 
     //Eventualy add a centre of mass location?
     private void UpdateCameraTarget()

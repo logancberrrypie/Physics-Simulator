@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
             try
             {
                 followTarget = SimulateController.ParticleInstances[particle - 1];
-                moveSpeed = SimulateController.ParticleInstances[particle - 1].GetComponent<Rigidbody>().velocity.magnitude * speedMod;
+                moveSpeed = SimulateController.ParticleInstances[particle - 1].GetComponent<ParticleInfo>().Velocity.magnitude * speedMod;
                 TargetPosition = new Vector3(
                     followTarget.transform.position.x + buffer,
                     followTarget.transform.position.y + buffer,

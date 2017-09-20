@@ -9,8 +9,6 @@ public class SimulateController : MonoBehaviour
 
     //Before release
 
-    //Adding restart simulation
-    //Updating values of Suvat while simulation is running then resetting them
     //Scrolling backgound
     //Simulation graphs
     //Message box
@@ -55,6 +53,7 @@ public class SimulateController : MonoBehaviour
 
     void Update()
     {
+        int particleSelected = UiController.instances.DropBoxParticle.value;
         GetSimulationSpeed();
         float deltaT = Time.fixedDeltaTime * SimulationSpeed;
         if (isSimulating)
@@ -62,9 +61,19 @@ public class SimulateController : MonoBehaviour
             if (simulationTime >= maxTime)
             {
                 isSimulating = false;
-                //Resetting velocity
             }
+            UiController.instances.UpdateUI(Particle.Instances[particleSelected]);
+            SetParticleTimes();
             simulationTime += deltaT;
+
+        }
+    }
+
+    private static void SetParticleTimes()
+    {
+        for (int i =0;i<Particle.Instances.Count;i++)
+        {
+            Particle.Instances[i].Time = simulationTime;
         }
     }
 
@@ -106,6 +115,8 @@ public class SimulateController : MonoBehaviour
             Radius,
             Radius,
             Radius);
+
+        Particle.Instances[index].beforeSimulation = new Particle(Particle.Instances[index]);
     }
 
     private static Vector3 getPosition(int index)

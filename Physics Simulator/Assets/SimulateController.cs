@@ -6,13 +6,8 @@ using UnityEngine;
 public class SimulateController : MonoBehaviour
 {
     #region TODO
-    //Contioue simulation by clicking play
-    //Adding pause
     //Adding restart simulation
     //Gravity in simulation
-    //Can collide toggle
-    //Colisions in simulations
-    //Changing time element on UI as simulation occuirs
     //Updating values of Suvat while simulation is running then resetting them
     //Scrolling backgound
     //Simulation graphs

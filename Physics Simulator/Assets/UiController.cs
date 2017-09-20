@@ -40,10 +40,20 @@ public class UiController : MonoBehaviour {
     //Simulation speed inputs
     public Text LabelSimulationSpeed;
     public Slider SliderSimulationSpeed;
-    #endregion
+
+    //Simulation time 
+    public Text LabelSimulationTime;
 
     public Toggle ToggleGravity;
     public Toggle ToggleCollisions;
+    #endregion
+
+
+    public void Update()
+    {
+        UpdateTimeLabel();
+    }
+
 
     //Eventualy add a centre of mass location?
     private void UpdateCameraTarget()
@@ -93,6 +103,10 @@ public class UiController : MonoBehaviour {
             SimulateController.maxTime = 2 * SimulateController.maxTime;
         }
         SimulateController.isSimulating = true;
+    }
+    public void UpdateTimeLabel()
+    {
+        LabelSimulationTime.text = "Time : \n " + SimulateController.simulationTime + " s";
     }
 
     public void OnDropBoxParticleChanged()

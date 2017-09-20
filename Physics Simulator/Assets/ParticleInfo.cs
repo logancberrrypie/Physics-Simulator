@@ -9,6 +9,8 @@ public class ParticleInfo : MonoBehaviour {
     public Vector3 Velocity;
     public bool hasCollided;
 
+    public float GraviationalConstant = 6.6740831f * Mathf.Pow(10, -11); 
+
     private void Update()
     {
         if (SimulateController.isSimulating == true)
@@ -16,12 +18,37 @@ public class ParticleInfo : MonoBehaviour {
             //Puts change of time in terms of the simulation slider(static variable)
             float deltaT = Time.fixedDeltaTime * SimulateController.SimulationSpeed;
             UpdateVelocity(deltaT);
+            if (Particle.Instances[index].HasGravity == true)
+            {
+                Debug.Log("Gravity ran");
+                UpdateGravity(deltaT);
+            }
             Move(deltaT);
         }
         else
         {
             
             //Velocity = Vector3.zero;
+        }
+    }
+
+    private void UpdateGravity(float deltaT)
+    {
+        for (int i = 0; i < Particle.Instances.Count; i++)
+        {
+            if (i != index && Particle.Instances[i].HasGravity == true)
+            {
+                Vector3 radius = gameObject.transform.position - SimulateController.ParticleInstances[i].transform.position;
+
+                float sizeOfRadiusSquared = Mathf.Pow(MyMaths.Vector_Magnitude(radius), 2);
+                if (sizeOfRadiusSquared > 0)
+                {
+                    Vector3 acceleration = radius.normalized * GraviationalConstant * Particle.Instances[index].Mass / sizeOfRadiusSquared;
+                    Vector3 additionalVelocity = acceleration * deltaT;
+                    SimulateController.ParticleInstances[i].GetComponent<ParticleInfo>().Velocity += additionalVelocity;
+                    Debug.Log("Additional velocity : " + additionalVelocity);
+                }
+            }
         }
     }
 
@@ -54,6 +81,9 @@ public class ParticleInfo : MonoBehaviour {
         other.gameObject.GetComponent<ParticleInfo>().hasCollided = false;
         hasCollided = false;
     }
+
+#region Momentum Convervation methods
+
     public static void New__CalculateCollision(ParticleInfo first, ParticleInfo second)
     {
         //Getting unit direction vector
@@ -99,8 +129,5 @@ public class ParticleInfo : MonoBehaviour {
         return (1 / bottomQuotient) * topQuotient;
     }
 
-
-
-
-
+#endregion
 }

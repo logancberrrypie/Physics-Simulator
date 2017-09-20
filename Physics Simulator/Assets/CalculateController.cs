@@ -303,6 +303,4 @@ public class CalculateController : MonoBehaviour {
         Debug.Log(msg);
         throw new System.NotImplementedException();
     }
-
-
 }

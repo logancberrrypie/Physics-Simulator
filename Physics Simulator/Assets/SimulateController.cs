@@ -24,9 +24,9 @@ public class SimulateController : MonoBehaviour
     public static List<GameObject> ParticleInstances = new List<GameObject>();
     public static bool isSimulating;
 
-    private static float simulationTime;
+    public static float simulationTime;
     private static float _maxTime;
-    private static float maxTime
+    public static float maxTime
     {
         get { return _maxTime; }
         set
@@ -54,10 +54,6 @@ public class SimulateController : MonoBehaviour
             {
                 isSimulating = false;
                 //Resetting velocity
-                for (int i = 0; i < ParticleInstances.Count; i++)
-                {
-                    ParticleInstances[i].GetComponent<ParticleInfo>().Velocity = Vector3.zero;
-                }
             }
             simulationTime += deltaT;
         }

@@ -82,6 +82,19 @@ public class UiController : MonoBehaviour {
             SimulateController.OnSimulateClicked();
         }
     }
+    public void OnPauseClicked()
+    {
+        SimulateController.isSimulating = false;
+    }
+    public void OnPlayClicked()
+    {
+        if (SimulateController.simulationTime >= SimulateController.maxTime)
+        {
+            SimulateController.maxTime = 2 * SimulateController.maxTime;
+        }
+        SimulateController.isSimulating = true;
+    }
+
     public void OnDropBoxParticleChanged()
     {
         int size = DropBoxParticle.options.Count;

@@ -20,7 +20,8 @@ public class ParticleInfo : MonoBehaviour {
         }
         else
         {
-            Velocity = Vector3.zero;
+            
+            //Velocity = Vector3.zero;
         }
     }
 

@@ -6,12 +6,26 @@ using UnityEngine;
 public class SimulateController : MonoBehaviour
 {
     #region TODO
+
+    //Before release
+
     //Adding restart simulation
-    //Gravity in simulation
     //Updating values of Suvat while simulation is running then resetting them
     //Scrolling backgound
     //Simulation graphs
-#endregion
+    //Message box
+
+
+    //After release
+
+    //Adding files
+    //particle colors
+    //updated UI (black and proffesional)
+    //move camera in 3d (lock into screen and move with mouse to look around the press esc to unlock mouse)
+
+
+
+    #endregion
 
 
 

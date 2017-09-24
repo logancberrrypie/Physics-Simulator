@@ -20,6 +20,7 @@ public class SimulateController : MonoBehaviour
     //particle colors
     //updated UI (black and proffesional)
     //move camera in 3d (lock into screen and move with mouse to look around the press esc to unlock mouse)
+    //Draw movements
 
 
 

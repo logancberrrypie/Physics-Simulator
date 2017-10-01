@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class MyMaths : MonoBehaviour
 {
+    public static Vector3 Vector_Ceil(Vector3 v)
+    {
+        Vector3 newVector = new Vector3();
+        for (int i =0;i<3;i++)
+        {
+            newVector[i] = Mathf.Ceil(v[i]);
+        }
+        return newVector;
+    }
+
 
     public static float Magnitude(float value)
     {

@@ -32,7 +32,6 @@ public class ParticleInfo : MonoBehaviour {
             UpdatePositionValue();
             if (Particle.Instances[index].HasGravity == true)
             {
-                Debug.Log("Gravity ran");
                 UpdateGravity(deltaT);
             }
             Move(deltaT);

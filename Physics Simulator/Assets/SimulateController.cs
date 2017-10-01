@@ -80,6 +80,9 @@ public class SimulateController : MonoBehaviour
 
     public static void OnSimulateClicked()
     {
+        GenerateBackground generator = new GenerateBackground();
+        generator.CreateBackground();
+
         ParticleInstances = new List<GameObject>();
         string tag = "Simulation";
         DestroyObjectsWithTag(tag);

@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 313877697}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 1
   m_Options:
     m_Options:
     - m_Text: Free Roam
@@ -10579,7 +10579,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Free Roam
+  m_Text: Particle 1
 --- !u!222 &1681350758
 CanvasRenderer:
   m_ObjectHideFlags: 0
